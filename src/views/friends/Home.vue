@@ -23,10 +23,10 @@
           <td>{{ friend.no_telp }}</td>
           <td>{{ friend.alamat }}</td>
           <td>
-            <router-link class="btn btn-light" to="/editfriends"
+            <router-link class="btn btn-light" :to="{name:'Editfriends', params:{id:friend.id}}"
               >Edit</router-link
             >
-            <button class="btn btn-secondary">Delete</button>
+            <button @click.prevent="friendDelete(friend.id)" class="btn btn-secondary">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -47,21 +47,34 @@ export default {
   },
 
   setup() {
-    let friends = ref([]);
+    let friends = ref([])
 
     onMounted(() => {
       axios
-        .get("http://127.0.0.1:8000/api/friends")
-        .then((response) => {
-          friends.value = response.data.data;
+        .get('http://pia.labirin.co.id/api/friends')
+        .then(response => {
+          console.log(response)
+          friends.value = response.data.data
         })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
+        .catch(error => {
+          console.log(error)
+        })
+    })
+
+    function friendDelete(id){
+      axios.delete(`http://pia.labirin.co.id/api/friends/${id}`)
+      .then(()=>{
+        let z = this.friend.map(friends => friends.id).indexOf(id);
+        this.friends.splice(z, 1)
+      }).catch(error => {
+        console.log(error)
+      })
+    }
+
     return {
-      friends
-    };
-  },
+      friends,
+      friendDelete
+    }
+  }
 };
 </script>

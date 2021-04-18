@@ -70,7 +70,7 @@ export default {
       let alamat = friend.alamat;
 
       axios
-        .post("http://127.0.0.1:8000/api/friends", {
+        .post("http://pia.labirin.co.id/api/friends/", {
           nama: nama,
           no_telp: no_telp,
           alamat: alamat,
