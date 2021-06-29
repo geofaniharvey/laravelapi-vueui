@@ -7,6 +7,10 @@
     <router-link class="btn btn-warning" to="/createfriends"
       >Add Friends</router-link
     >
+
+
+  <Cardfriends :friends="friends"/>
+    
     <table class="table table-success table-stripe">
       <thead>
         <tr>
@@ -38,12 +42,14 @@
 import axios from "axios";
 // @ is an alias to /src
 import Slider from "@/components/Slider.vue";
+import Cardfriends from "@/components/Cardfriends.vue";
 import { onMounted, ref } from "vue";
 
 export default {
   name: "Home",
   components: {
     Slider,
+    Cardfriends,
   },
 
   setup() {
@@ -51,9 +57,8 @@ export default {
 
     onMounted(() => {
       axios
-        .get('http://pia.labirin.co.id/api/friends')
+        .get('http://127.0.0.1:8000/api/friends')
         .then(response => {
-          console.log(response)
           friends.value = response.data.data
         })
         .catch(error => {
@@ -62,7 +67,7 @@ export default {
     })
 
     function friendDelete(id){
-      axios.delete(`http://pia.labirin.co.id/api/friends/${id}`)
+      axios.delete(`http://127.0.0.1:8000/api/friends/${id}`)
       .then(()=>{
         let z = this.friend.map(friends => friends.id).indexOf(id);
         this.friends.splice(z, 1)
