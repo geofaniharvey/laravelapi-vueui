@@ -1,17 +1,18 @@
 <template>
- <div class="card text-center">
+ <div class="card text-center mt-4" v-for="f in friend" :key="f.id">
   <div class="card-header">
     Detail Teman
   </div>
   <div class="card-body">
-    <h5 class="card-title">{{friend.nama}}</h5>
-    <p class="card-text">{{friend.no_telp}}</p>
-    <p class="card-text">{{friend.alamat}}</p>
+    <h5 class="card-title">{{f.nama}}</h5>
+    <p class="card-text">{{f.no_telp}}</p>
+    <p class="card-text">{{f.alamat}}</p>
+    <p class="card-text">{{f.groups.name}}</p>
 
-    <router-link class="btn btn-light" :to="{name:'Editfriends', params:{id:friend.id}}"
+    <router-link class="btn btn-light" :to="{name:'Editfriends', params:{id:f.id}}"
               >Edit</router-link
             >
-            <button @click.prevent="friendDelete(friend.id)" class="btn btn-secondary">Delete</button>
+            <button @click.prevent="friendDelete(f.id)" class="btn btn-secondary">Delete</button>
   </div>
   <div class="card-footer text-muted">
     Universitas Catur Insan Cendekia
